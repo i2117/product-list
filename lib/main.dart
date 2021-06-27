@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:product_list/products_data.dart';
+import 'package:product_list/widgets/product_item.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void didChangeDependencies() {
+    products.forEach((product) {
+      print('Product description: ${product.description}');
+      print('Product units      : ${product.units}');
+      print('======================================');
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: products
+              .map(
+                (product) => ProductItem(
+                  description: product.description,
+                  units: product.units,
+                ),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+}
