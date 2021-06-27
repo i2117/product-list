@@ -43,7 +43,7 @@ class ProductItem extends StatelessWidget {
       var line = '';
       var lastWord = '';
       // Формируем новую строку, добавляя по одному слову каждый раз.
-      // Можно вынести в отдельный метод
+      // Можно вынести в отдельный метод.
       while (lineWidth < width && words.isNotEmpty) {
         lastWord = words.first;
         // Если в строке уже есть слова, добавляем пробел перед новым словом.
@@ -57,7 +57,6 @@ class ProductItem extends StatelessWidget {
 
       // В этот момент допустимая ширина строки превышена, поэтому как бы
       // откатываем результат на одно слово, если число слов больше 1.
-
 
       // Смотрим, сколько слов в строке. Если находим пробел, значит > 1.
       final lastSpaceIndex = line.lastIndexOf(' ');
@@ -80,10 +79,10 @@ class ProductItem extends StatelessWidget {
   /// Метод, чтобы узнавать, сколько пикселей будет занимать отрисованная строка
   Size _textSize(String text, TextStyle style) {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: text, style: style),
-        maxLines: 1,
-        textDirection: TextDirection.ltr)
-      ..layout(minWidth: 0, maxWidth: double.infinity);
+      text: TextSpan(text: text, style: style),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout(minWidth: 0, maxWidth: double.infinity);
     return textPainter.size;
   }
 
@@ -92,14 +91,13 @@ class ProductItem extends StatelessWidget {
     return Container(
       width: width,
       decoration: BoxDecoration(
-        color: Colors.grey,
+        color: Colors.tealAccent,
         border: Border.all(
           color: Colors.lightBlueAccent,
           width: 1,
         ),
       ),
       child: Column(
-        //mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Первые строки

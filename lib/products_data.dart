@@ -1,6 +1,6 @@
 import 'package:product_list/data_structures/product.dart';
 
-const List<Product> products = [
+const List<Product> DIFFERENT_PRODUCTS = [
   Product(
     description: 'Red Delicious apple with banana flavour',
     units: '1 kg',
@@ -22,11 +22,33 @@ const List<Product> products = [
     units: '25 mg',
   ),
   Product(
-    description: 'VeryVeryLongWordForNoReason and some other things',
-    units: '27 letters',
+    description: 'VeryVeryLongWordJustForFun and some other things',
+    units: '26 letters',
   ),
   Product(
     description: 'OnlyOneLongWordInDescription',
     units: '28',
   ),
+];
+
+const FAKE_PRODUCTS = [
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
+  ...DIFFERENT_PRODUCTS,
 ];

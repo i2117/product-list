@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:product_list/products_data.dart';
+import 'package:product_list/widgets/dynamic_app_bar.dart';
 import 'package:product_list/widgets/product_item.dart';
+import 'data_structures/product.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,53 +12,75 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.blueAccent,
+        statusBarColor: Colors.blueAccent,
+      ),
+    );
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Product List App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Product> _products = [];
+
+  /// Полезная вещь, но в этой ситуации она не понадобилась.
+  ScrollController _scrollController;
+
   @override
   void didChangeDependencies() {
-    products.forEach((product) {
-      print('Product description: ${product.description}');
-      print('Product units      : ${product.units}');
-      print('======================================');
+    setState(() {
+      _products = FAKE_PRODUCTS;
     });
+
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: products
-              .map(
-                (product) => ProductItem(
-                  description: product.description,
-                  units: product.units,
+      // Мне не нравится, когда приложение залезает на системный статус-бар,
+      // Поэтому предпочитаю использовать SafeArea.
+      body: SafeArea(
+        child: CustomScrollView(
+          // Интересный эффект, но не в нашем случае
+          // physics: const BouncingScrollPhysics(),
+          controller: _scrollController,
+          slivers: [
+            DynamicSliverAppBar(
+              title: 'Product List',
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                // Align, чтобы элементы не растягивались
+                (context, i) => Align(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: ProductItem(
+                      description: _products[i].description,
+                      units: _products[i].units,
+                      width: 100,
+                      maxLines: 2,
+                    ),
+                  ),
                 ),
-              )
-              .toList(),
+                childCount: _products.length,
+              ),
+            ),
+          ],
         ),
       ),
     );
